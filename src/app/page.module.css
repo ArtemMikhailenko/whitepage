@@ -471,4 +471,6 @@
   height: 100vh;
   font-size: 18px;
   color: #666;
+  transition: transform 0.3s ease;
+  animation: pulse 1.5s ease-in-out infinite;
 }
