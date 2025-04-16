@@ -292,7 +292,6 @@
   cursor: pointer;
   font-size: 14px;
   color: #666;
-  border-bottom: #666 0.5px dashed;
 }
 
 .checkbox {
@@ -337,7 +336,7 @@
 .checkboxText {
   margin-left: 2px;
   border-bottom: #666 0.5px dashed;
-
+  padding-bottom: 1px;
 }
 
 /* Asset Item */
