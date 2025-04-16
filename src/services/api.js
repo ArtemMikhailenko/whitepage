@@ -1,5 +1,5 @@
 // services/api.js
-const API_URL =  'http://localhost:3000/api';
+const API_URL =  'https://white-back.onrender.com/api';
 
 export const api = {
   // Получение данных кошелька
