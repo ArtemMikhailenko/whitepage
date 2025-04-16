@@ -17,14 +17,20 @@ export const api = {
   },
 
   // Обновление данных кошелька
-  async updateWallet(walletData) {
+  async updateWallet(dataToSend) {
+    const dataToSend = {
+      ...walletData,
+      balance: Number(walletData.balance),
+      equivalentBalance: Number(walletData.equivalentBalance),
+      // Если есть другие числовые поля, преобразуйте их также
+    };
     try {
       const response = await fetch(`${API_URL}/wallet`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(walletData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (!response.ok) {

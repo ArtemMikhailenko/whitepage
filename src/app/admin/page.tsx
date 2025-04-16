@@ -83,6 +83,7 @@ export default function AdminPage() {
   // Обработчик изменения основных данных кошелька
   const handleWalletDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
       setWalletData({
@@ -95,7 +96,9 @@ export default function AdminPage() {
     } else {
       setWalletData({
         ...walletData,
-        [name]: name.includes('balance') ? parseFloat(value) : value
+        [name]: name === 'balance' || name === 'equivalentBalance' 
+          ? parseFloat(value) 
+          : value
       });
     }
   };
