@@ -16,6 +16,8 @@ import { VscPieChart } from "react-icons/vsc";
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { GrDocumentTime } from "react-icons/gr";
 import { BiSolidBarChartSquare } from "react-icons/bi";
+import { RiExchange2Line } from "react-icons/ri";
+
 
 // Типы данных
 interface Asset {
@@ -290,7 +292,7 @@ export default function CryptoWallet() {
           {/* Convert Small Assets */}
           <div className={styles.convertAssetsButton}>
             <span className={styles.convertIcon}>
-              <RiExchangeLine size={20} />
+              <RiExchange2Line size={20} />
             </span>
             <span className={styles.convertText}>Преобразуване на малки активи</span>
             <span className={styles.rightArrow}><IoChevronForward size={16} /></span>
