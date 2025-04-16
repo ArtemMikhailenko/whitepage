@@ -288,7 +288,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
   font-size: 14px;
   color: #666;
@@ -325,7 +325,7 @@
 
 .checkboxLabel input:checked ~ .checkmarkCustom:after {
   display: block;
-  left: 5px;
+  left: 3px;
   top: 0px;
   width: 5px;
   height: 10px;
@@ -335,7 +335,9 @@
 }
 
 .checkboxText {
-  margin-left: 5px;
+  margin-left: 2px;
+  border-bottom: #666 0.5px dashed;
+
 }
 
 /* Asset Item */
