@@ -1,11 +1,11 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import { api } from '../services/api';
 
-// Импорт иконок из разных библиотек
+// Импорт иконок 
 import { FiEye, FiRefreshCw, FiBarChart2, FiSearch, FiHome } from 'react-icons/fi';
 import { IoCheckmarkCircle, IoChevronDown, IoChevronForward } from 'react-icons/io5';
 import { RiSignalWifiLine, RiBattery2ChargeLine, RiExchangeLine } from 'react-icons/ri';
@@ -16,7 +16,6 @@ import { VscPieChart } from "react-icons/vsc";
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { GrDocumentTime } from "react-icons/gr";
 import { BiSolidBarChartSquare } from "react-icons/bi";
-
 
 // Типы данных
 interface Asset {
@@ -74,23 +73,101 @@ export default function CryptoWallet() {
   const [showSmallBalances, setShowSmallBalances] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   
+  // Новые состояния для pull-to-refresh
+  const [isPulling, setIsPulling] = useState(false);
+  const [pullDistance, setPullDistance] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const startY = useRef(0);
+  const containerRef = useRef(null);
+  
   // Загрузка данных с сервера при монтировании компонента
   useEffect(() => {
     fetchWalletData();
+    
+    // Добавляем обработчики для pull-to-refresh
+    if (typeof window !== 'undefined') {
+      const main = document.querySelector(`.${styles.main}`);
+      if (main) {
+        main.addEventListener('touchstart', handleTouchStart, { passive: false });
+        main.addEventListener('touchmove', handleTouchMove, { passive: false });
+        main.addEventListener('touchend', handleTouchEnd, { passive: false });
+      }
+      
+      return () => {
+        if (main) {
+          main.removeEventListener('touchstart', handleTouchStart);
+          main.removeEventListener('touchmove', handleTouchMove);
+          main.removeEventListener('touchend', handleTouchEnd);
+        }
+      };
+    }
   }, []);
+  
+  // Обработчики для pull-to-refresh
+  const handleTouchStart = (e:any) => {
+    //@ts-ignore
+    const scrollTop = document.querySelector(`.${styles.main}`).scrollTop;
+    // Начинаем отслеживать pull только если страница прокручена до верха
+    if (scrollTop <= 0) {
+      startY.current = e.touches[0].clientY;
+      setIsPulling(true);
+    }
+  };
+  
+  const handleTouchMove = (e:any) => {
+    if (!isPulling) return;
+    
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - startY.current;
+    
+    // Ограничиваем смещение до 100px и только если тянем вниз
+    if (diff > 0) {
+      e.preventDefault(); // Предотвращаем стандартное поведение прокрутки
+      const distance = Math.min(diff * 0.5, 100); // Замедляем эффект для более естественного ощущения
+      setPullDistance(distance);
+    }
+  };
+  
+  const handleTouchEnd = () => {
+    if (!isPulling) return;
+    
+    // Если потянули достаточно далеко, запускаем обновление
+    if (pullDistance > 50) {
+      setIsRefreshing(true);
+      // Запускаем обновление данных
+      fetchWalletData().then(() => {
+        // После завершения обновления
+        setTimeout(() => {
+          setIsRefreshing(false);
+          setPullDistance(0);
+          setIsPulling(false);
+        }, 1000); // Задержка для отображения анимации обновления
+      });
+    } else {
+      // Если недостаточно потянули, возвращаем в исходное положение
+      setPullDistance(0);
+      setIsPulling(false);
+    }
+  };
   
   // Функция для загрузки данных с сервера
   const fetchWalletData = async () => {
-    setIsLoading(true);
+    if (!isRefreshing) {
+      setIsLoading(true);
+    }
     try {
       const data = await api.getWallet();
       if (data) {
         setWalletData(data);
       }
+      return true;
     } catch (error) {
       console.error('Ошибка при загрузке данных кошелька:', error);
+      return false;
     } finally {
-      setIsLoading(false);
+      if (!isRefreshing) {
+        setIsLoading(false);
+      }
     }
   };
   
@@ -104,21 +181,35 @@ export default function CryptoWallet() {
     await fetchWalletData();
   };
 
-  if (isLoading) {
+  if (isLoading && !isRefreshing) {
     return <div className={styles.loading}>Загрузка...</div>;
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <Head>
         <title>Crypto Wallet</title>
         <meta name="description" content="Crypto wallet application" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        {/* Status Bar */}
+      {/* Индикатор pull-to-refresh */}
+      {isPulling || isRefreshing ? (
+        <div 
+          className={styles.pullToRefresh} 
+          style={{ 
+            height: `${isRefreshing ? 60 : pullDistance}px`,
+            opacity: isRefreshing ? 1 : pullDistance / 60
+          }}
+        >
+          <div className={`${styles.refreshLoader} ${isRefreshing ? styles.refreshing : ''}`}>
+            <FiRefreshCw size={24} />
+          </div>
+        </div>
+      ) : null}
 
+      <main className={styles.main} style={{ transform: `translateY(${isPulling || isRefreshing ? pullDistance : 0}px)` }}>
+        {/* Status Bar */}
 
         {/* Navigation Tabs */}
         <div className={styles.navTabs}>
@@ -136,6 +227,7 @@ export default function CryptoWallet() {
           <div className={styles.navTab}>Ко</div>
         </div>
 
+        {/* Основное содержимое страницы остается без изменений */}
         {/* Balance Section */}
         <div className={styles.balanceSection}>
           <div className={styles.balanceHead}>
