@@ -184,11 +184,7 @@ export default function CryptoWallet() {
   };
 
   if (isLoading && !isRefreshing) {
-    return <div className={styles.loading}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16.5 5.5L22 12L16.5 18.5" stroke="#8F8F8F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'none' }} />
-    <path d="M12 17L8.5 9L5 17H12Z" fill="#8F8F8F" />
-    <path d="M19 17L15.5 9L12 17H19Z" fill="#8F8F8F" />
-  </svg></div>;
+    return <div className={styles.loading}><svg className="sc-gEvEer hSTeNi mx-icon ThemeIcon_ra_appLogo__gUw01" focusable="false" width="50px" height="50px" fill="currentColor" aria-hidden="true" viewBox="0 0 40 40" data-icon="AppLogo"><rect width="40" height="40" rx="7.8125" fill="white"></rect><path fill-rule="evenodd" clip-rule="evenodd" d="M7.66768 30.0518H25.8276C26.9538 30.0518 27.6618 28.7779 27.1185 27.8198L18.0238 11.9294C16.498 9.32212 12.5603 9.41345 11.2175 12.1511L4.3085 24.1982C2.91596 26.6859 4.7076 30.0518 7.66768 30.0518Z" fill="#000"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M21.9845 15.8613C20.9136 13.9988 21.5444 11.6042 23.4073 10.5251C25.2556 9.44602 27.6319 10.0816 28.7028 11.9589L35.7291 24.213C36.7999 26.0755 36.1692 28.4702 34.3062 29.5492C32.458 30.6283 30.0816 29.9927 29.0108 28.1154L21.9845 15.8613Z" fill="#000"></path></svg></div>;
   }
 
   return (
