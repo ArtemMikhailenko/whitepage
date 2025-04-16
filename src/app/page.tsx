@@ -182,7 +182,11 @@ export default function CryptoWallet() {
   };
 
   if (isLoading && !isRefreshing) {
-    return <div className={styles.loading}>Загрузка...</div>;
+    return <div className={styles.loading}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.5 5.5L22 12L16.5 18.5" stroke="#8F8F8F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'none' }} />
+    <path d="M12 17L8.5 9L5 17H12Z" fill="#8F8F8F" />
+    <path d="M19 17L15.5 9L12 17H19Z" fill="#8F8F8F" />
+  </svg></div>;
   }
 
   return (

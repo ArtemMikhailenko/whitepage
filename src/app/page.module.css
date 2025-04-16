@@ -280,8 +280,7 @@
 
 .assetsOptions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
@@ -293,6 +292,7 @@
   cursor: pointer;
   font-size: 14px;
   color: #666;
+  border-bottom: #666 0.5px dashed;
 }
 
 .checkbox {
