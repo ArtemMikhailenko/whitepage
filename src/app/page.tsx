@@ -12,7 +12,11 @@ import { RiSignalWifiLine, RiBattery2ChargeLine, RiExchangeLine } from 'react-ic
 import { BiSignal5, BiLineChart } from 'react-icons/bi';
 import { FaRegChartBar, FaExchangeAlt } from 'react-icons/fa';
 import { SiTether } from 'react-icons/si';
+import { VscPieChart } from "react-icons/vsc";
 import { MdAccountBalanceWallet } from 'react-icons/md';
+import { GrDocumentTime } from "react-icons/gr";
+import { BiSolidBarChartSquare } from "react-icons/bi";
+
 
 // Типы данных
 interface Asset {
@@ -136,19 +140,20 @@ export default function CryptoWallet() {
         <div className={styles.balanceSection}>
           <div className={styles.balanceHead}>
           <div className={styles.balanceHeader}>
-            <span className={styles.balanceTitle}>Стойност на собствения капитал</span>
+            <span className={styles.balanceTitle}>Обща стойност</span>
             <span className={styles.eyeIcon} onClick={() => setHideBalance(!hideBalance)}>
               <FiEye size={10} />
             </span>
           </div>
           
           <div className={styles.balanceActions}>
+          <div className={styles.chartIcon}>
+              <VscPieChart size={20} />
+            </div>
             <div className={styles.refreshIcon} onClick={handleRefresh}>
-              <FiRefreshCw size={20} />
+              <GrDocumentTime size={20} />
             </div>
-            <div className={styles.chartIcon}>
-              <FiBarChart2 size={20} />
-            </div>
+            
           </div>
           </div>
           
@@ -167,7 +172,7 @@ export default function CryptoWallet() {
           </div>
 
           <div className={styles.pnlInfo}>
-            <span className={styles.pnlLabel}> <FiBarChart2 size={20} />Днешен PNL:</span>
+            <span className={styles.pnlLabel}> <BiSolidBarChartSquare size={20} />Днешен PNL:</span>
             <span className={styles.pnlAmount}>
               {walletData.pnl.value} {walletData.equivalentCurrency} ({walletData.pnl.percentage}%)
             </span>

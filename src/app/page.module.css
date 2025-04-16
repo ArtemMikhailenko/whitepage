@@ -110,6 +110,7 @@
 .balanceTitle {
   color: #666;
   font-size: 14px;
+  border-bottom: 0.5px #666 dashed;
 }
 
 .eyeIcon {
@@ -202,7 +203,7 @@
 .depositButton, .withdrawButton, .transferButton {
   flex: 1;
   padding: 12px 0;
-  border-radius: 6px;
+  border-radius: 18px;
   font-size: 14px;
   font-weight: 500;
   border: none;
