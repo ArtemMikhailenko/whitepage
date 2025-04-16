@@ -319,8 +319,8 @@
 
 .checkboxLabel input:checked ~ .checkmarkCustom:after {
   display: block;
-  left: 6px;
-  top: 2px;
+  left: 5px;
+  top: 0px;
   width: 5px;
   height: 10px;
   border: solid white;
