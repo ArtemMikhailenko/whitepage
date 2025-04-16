@@ -1,168 +1,420 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
+/* page.module.css */
+.container {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  max-width: 428px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  overflow-y: auto;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
-}
-
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
-}
-
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.ctas {
+/* Status Bar */
+.statusBar {
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  color: #000;
 }
 
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-  cursor: pointer;
+.time {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.statusIcons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verifiedIcon {
+  background-color: #0066ff;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.checkIcon {
+  margin-top: 1px;
+}
+
+/* Navigation Tabs */
+.navTabs {
+  display: flex;
+  padding: 0 10px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.navTabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.navTab {
+  padding: 10px 15px;
+  font-size: 15px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.activeTab {
+  color: #000;
+  font-weight: 600;
+  position: relative;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #000;
+}
+
+/* Balance Section */
+.balanceSection {
+  padding: 15px;
+  background-color: #fff;
+}
+.balanceHead{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.balanceHeader {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.balanceTitle {
+  color: #666;
+  font-size: 14px;
+}
+
+.eyeIcon {
+  color: #666;
+  cursor: pointer;
+}
+
+.balanceActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.refreshIcon, .chartIcon {
+  color: #666;
+  cursor: pointer;
+}
+
+.balanceAmount {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.mainBalance {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.currencySelector {
   font-size: 16px;
-  line-height: 20px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.dropdownArrow {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.equivalentBalance {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.pnlInfo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.pnlLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pnlAmount {
+  color: #666;
+}
+
+.arrowIcon {
+  color: #999;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.depositButton, .withdrawButton, .transferButton {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.depositButton {
+  background-color: #0066ff;
+  color: white;
+}
+
+.withdrawButton, .transferButton {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+/* Convert Assets Button */
+.convertAssetsButton {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.convertIcon {
+  color: #666;
+}
+
+.convertText {
+  flex: 1;
+  font-size: 14px;
+}
+
+.rightArrow {
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+
+/* Assets List */
+.assetsList {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.assetsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.assetsTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.searchIcon {
+  color: #666;
+  cursor: pointer;
+}
+
+.assetsOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmarkCustom {
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+}
+
+.checkboxLabel input:checked ~ .checkmarkCustom {
+  background-color: #0066ff;
+  border-color: #0066ff;
+}
+
+.checkmarkCustom:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxLabel input:checked ~ .checkmarkCustom:after {
+  display: block;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxText {
+  margin-left: 5px;
+}
+
+/* Asset Item */
+.assetItem {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 15px;
+}
+
+.assetIcon {
+  margin-top: 2px;
+}
+
+.assetDetails {
+  flex: 1;
+}
+
+.assetNameRow, .assetSubRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.assetSymbol {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.assetBalance {
+  font-size: 16px;
   font-weight: 500;
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+.assetName {
+  color: #666;
+  font-size: 14px;
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+.assetEquivalent {
+  color: #666;
+  font-size: 14px;
 }
 
-.footer {
-  grid-row-start: 3;
+/* Bottom Navigation */
+.bottomNav {
   display: flex;
-  gap: 24px;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fff;
 }
 
-.footer a {
+.navItem {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
-.footer img {
-  flex-shrink: 0;
+.navIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
+.activeNavItem .navIcon {
+  color: #000;
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
+.navLabel {
+  font-size: 12px;
+  color: #666;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.activeNavItem .navLabel {
+  color: #000;
+  font-weight: 500;
+}
+
+.bottomIndicator {
+  height: 5px;
+  width: 134px;
+  background-color: #000;
+  border-radius: 3px;
+  margin: 0 auto;
+  margin-top: 5px;
 }
