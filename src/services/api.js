@@ -17,7 +17,7 @@ export const api = {
   },
 
   // Обновление данных кошелька
-  async updateWallet(dataToSend) {
+  async updateWallet(walletData) {
     const dataToSend = {
       ...walletData,
       balance: Number(walletData.balance),
